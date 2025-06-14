@@ -102,7 +102,7 @@ uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr) {
     return data;
 }
 
-bool pmw33xx_check_signature(uint8_t sensor) {
+__attribute__((weak)) bool pmw33xx_check_signature(uint8_t sensor) {
     uint8_t signature_dump[2] = {
         pmw33xx_read(sensor, REG_Product_ID),
         pmw33xx_read(sensor, REG_Inverse_Product_ID),
@@ -238,8 +238,9 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
 
 bool pmw33xx_init_ok = false;
 
-void pmw33xx_init_wrapper(void) {
+bool pmw33xx_init_wrapper(void) {
     pmw33xx_init_ok = pmw33xx_init(0);
+    return pmw33xx_init_ok;
 }
 
 void pmw33xx_set_cpi_wrapper(uint16_t cpi) {
