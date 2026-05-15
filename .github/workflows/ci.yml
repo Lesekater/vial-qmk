@@ -9,7 +9,8 @@ env:
   REGEX_ANSI_COLOR: 's/\x1b\[[0-9;]*[mGKHF]//g'
   REGEX_MAKE_OUTPUT: '/^g*make\[1]: \(Enter\|Leav\)ing directory ''/d'
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   check-uid:
