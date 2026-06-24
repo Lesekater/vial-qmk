@@ -6,7 +6,7 @@
         "pid": "0x0100",
         "device_version": "1.0.0"
     },
-    "manufacturer": "Yowkees",
+    "manufacturer": "Holykeebs",
     "keyboard_name": "Keyball61+",
     "ws2812": {
         "driver": "vendor"
