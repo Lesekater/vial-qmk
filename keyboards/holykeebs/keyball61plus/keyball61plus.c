@@ -1,7 +1,6 @@
 /*
 Copyright 2021 @Yowkees
 Copyright 2022 MURAOKA Taro (aka KoRoN, @kaoriya)
-Copyright 2026 Holykeebs
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,10 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#include "lib/keyball/keyball.h"
-
-//////////////////////////////////////////////////////////////////////////////
-
+// Duplex matrix mask: marks the unused intersections so QMK ignores them.
+// Consumed by the matrix scan because MATRIX_MASKED is defined in config.h.
 // clang-format off
 matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b01110111,
@@ -38,6 +35,21 @@ matrix_row_t matrix_mask[MATRIX_ROWS] = {
 };
 // clang-format on
 
-void keyball_on_adjust_layout(keyball_adjust_t v) {
-    // RGB Matrix handles per-side LED counts via split_count, no clipping needed.
+#ifdef OLED_ENABLE
+#    include "users/holykeebs/holykeebs.h"
+
+// The peripheral half shows the Keyball logo (this board's heritage), matching
+// the original keyball lib's oledkit. The master half shows the live info panels
+// (handled by the holykeebs userspace). Glyphs 0x80..0xAF in the holykeebs
+// logofont are the logo, laid out 3 rows x 16 columns.
+void hk_oled_render_secondary(void) {
+    char ch = 0x80;
+    for (int y = 0; y < 3; y++) {
+        oled_write_P(PSTR("  "), false);
+        for (int x = 0; x < 16; x++) {
+            oled_write_char(ch++, false);
+        }
+        oled_advance_page(false);
+    }
 }
+#endif
