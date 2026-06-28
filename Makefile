@@ -42,6 +42,10 @@ endif
 ifeq ($(QMK_USERSPACE),)
     QMK_USERSPACE = $(shell qmk config -ro user.overlay_dir | cut -d= -f2 | sed -e 's@^None$$@@g')
 endif
+# Export so the recursive keyboard sub-make (build_keyboard.mk) sees it; without
+# this the External Userspace overlay isn't wired into the build. Matches
+# qmk_firmware's `export override QMK_USERSPACE`.
+export QMK_USERSPACE
 
 # Determine which qmk cli to use
 QMK_BIN := qmk
