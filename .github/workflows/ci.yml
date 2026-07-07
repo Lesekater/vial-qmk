@@ -56,7 +56,14 @@ jobs:
       id: build
       run: |
         git config --global --add safe.directory $(pwd)
-        if ! qmk mass-compile -j $(nproc) $(qmk find -km vial | sed "s/:vial$/:${KEYMAP}/");
+        # Only the holykeebs boards are maintained in this fork; upstream vial
+        # keyboards are not our concern and building all of them takes ~2h.
+        targets=$(qmk find -km vial | grep '^holykeebs/' | sed "s/:vial$/:${KEYMAP}/")
+        if [ -z "${targets}" ]; then
+          echo "::error::no holykeebs vial targets found"
+          exit 1
+        fi
+        if ! qmk mass-compile -j $(nproc) ${targets};
           then
           echo "::error::$(ls -1 .build/failed.log.* | wc -l) keymaps failed to build. See logs and/or job summary for details."
           exit 1
@@ -104,7 +111,13 @@ jobs:
       id: build
       run: |
         git config --global --add safe.directory $(pwd)
-        if ! qmk mass-compile -km "${KEYMAP}" -j $(nproc);
+        # See build-default: holykeebs boards only.
+        targets=$(qmk find -km "${KEYMAP}" | grep '^holykeebs/')
+        if [ -z "${targets}" ]; then
+          echo "::error::no holykeebs vial targets found"
+          exit 1
+        fi
+        if ! qmk mass-compile -j $(nproc) ${targets};
           then
           echo "::error::$(ls -1 .build/failed.log.* | wc -l) keymaps failed to build. See logs and/or job summary for details."
           exit 1
