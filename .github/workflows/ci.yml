@@ -29,9 +29,13 @@ jobs:
   build-default:
     name: Build default keymaps for Vial
     runs-on: ubuntu-latest
-    container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07 
+    container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
     env:
       KEYMAP: default
+      # holykeebs boards (keyball61plus) build against the shared userspace
+      # overlay, checked out below. The Makefile exports this to the keyboard
+      # sub-make.
+      QMK_USERSPACE: ${{ github.workspace }}/qmk-userspace
 
     steps:
     - name: (actions) Checkout Vial repo
@@ -39,6 +43,14 @@ jobs:
       with:
         persist-credentials: false
         submodules: recursive
+
+    - name: (actions) Checkout holykeebs userspace overlay
+      uses: actions/checkout@v4
+      with:
+        repository: holykeebs/qmk-userspace
+        ref: hk-master
+        path: qmk-userspace
+        persist-credentials: false
 
     - name: Build
       id: build
@@ -67,9 +79,11 @@ jobs:
   build-vial:
     name: Build Vial keymaps
     runs-on: ubuntu-latest
-    container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07 
+    container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
     env:
       KEYMAP: vial
+      # See build-default: the holykeebs userspace overlay for keyball61plus.
+      QMK_USERSPACE: ${{ github.workspace }}/qmk-userspace
 
     steps:
     - name: (actions) Checkout Vial repo
@@ -77,6 +91,14 @@ jobs:
       with:
         persist-credentials: false
         submodules: recursive
+
+    - name: (actions) Checkout holykeebs userspace overlay
+      uses: actions/checkout@v4
+      with:
+        repository: holykeebs/qmk-userspace
+        ref: hk-master
+        path: qmk-userspace
+        persist-credentials: false
 
     - name: Build
       id: build
