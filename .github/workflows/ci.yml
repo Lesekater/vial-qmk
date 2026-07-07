@@ -32,10 +32,6 @@ jobs:
     container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
     env:
       KEYMAP: default
-      # holykeebs boards (keyball61plus) build against the shared userspace
-      # overlay, checked out below. The Makefile exports this to the keyboard
-      # sub-make.
-      QMK_USERSPACE: ${{ github.workspace }}/qmk-userspace
 
     steps:
     - name: (actions) Checkout Vial repo
@@ -56,6 +52,11 @@ jobs:
       id: build
       run: |
         git config --global --add safe.directory $(pwd)
+        # The holykeebs userspace overlay checked out above. Resolved at runtime
+        # from GITHUB_WORKSPACE: ${{ github.workspace }} would give the host
+        # path, which doesn't exist inside this container. The Makefile exports
+        # the variable to the keyboard sub-make.
+        export QMK_USERSPACE="${GITHUB_WORKSPACE}/qmk-userspace"
         # Only the holykeebs boards are maintained in this fork; upstream vial
         # keyboards are not our concern and building all of them takes ~2h.
         targets=$(qmk find -km vial | grep '^holykeebs/' | sed "s/:vial$/:${KEYMAP}/")
@@ -89,8 +90,6 @@ jobs:
     container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
     env:
       KEYMAP: vial
-      # See build-default: the holykeebs userspace overlay for keyball61plus.
-      QMK_USERSPACE: ${{ github.workspace }}/qmk-userspace
 
     steps:
     - name: (actions) Checkout Vial repo
@@ -111,6 +110,8 @@ jobs:
       id: build
       run: |
         git config --global --add safe.directory $(pwd)
+        # See build-default: the userspace overlay, resolved inside the container.
+        export QMK_USERSPACE="${GITHUB_WORKSPACE}/qmk-userspace"
         # See build-default: holykeebs boards only.
         targets=$(qmk find -km "${KEYMAP}" | grep '^holykeebs/')
         if [ -z "${targets}" ]; then
