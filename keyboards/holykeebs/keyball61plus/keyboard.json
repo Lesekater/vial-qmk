@@ -22,7 +22,7 @@
         "sleep": true,
         "default": {
             "animation": "cycle_pinwheel",
-            "speed": 32
+            "speed": 16
         },
         "animations": {
             "solid_color": true,
