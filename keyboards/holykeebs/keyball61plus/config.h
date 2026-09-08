@@ -52,12 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPI_MOSI_PIN   GP23
 #define PMW33XX_CS_PIN GP21
 
-// vial-qmk tracks an older QMK base that lacks pointing_device_get_status(). Tell
-// the holykeebs userspace to detect a fitted ball via the PMW3360-specific
-// pmw33xx_init_ok global instead (see users/holykeebs/pointing.h). qmk_firmware's
-// newer base has the generic API, so its copy of this board omits this define.
-#define HK_NO_POINTING_DEVICE_STATUS
-
 // RGB Matrix data line.
 #define WS2812_DI_PIN GP0
 

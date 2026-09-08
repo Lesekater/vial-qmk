@@ -524,11 +524,7 @@ void keyboard_post_init_kb(void) {
     }
 #endif
 
-    // Vial fork delta: this fork's QMK base has no pointing device status API,
-    // so ask the PMW3360 driver directly whether its probe succeeded. Same
-    // meaning as upstream's POINTING_DEVICE_STATUS_SUCCESS check - a half with
-    // no ball fitted fails init and reports no ball.
-    keyball.this_have_ball = pmw33xx_init_ok;
+    keyball.this_have_ball = pointing_device_get_status() == POINTING_DEVICE_STATUS_SUCCESS;
     keyball_set_cpi(CPI_DEFAULT);
 
     // read keyball configuration from EEPROM
