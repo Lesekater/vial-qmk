@@ -146,21 +146,21 @@ typedef struct PACKED {
 typedef struct PACKED {
     azoteq_iqs5xx_single_finger_gesture_enable_t single_finger_gestures;
     azoteq_iqs5xx_multi_finger_gesture_enable_t  multi_finger_gestures;
-    uint16_t                                     tap_time;
-    uint16_t                                     tap_distance;
-    uint16_t                                     hold_time;
-    uint16_t                                     swipe_initial_time;
-    uint16_t                                     swipe_initial_distance;
-    uint16_t                                     swipe_consecutive_time;
-    uint16_t                                     swipe_consecutive_distance;
-    int8_t                                       swipe_angle;
-    uint16_t                                     scroll_initial_distance;
-    int8_t                                       scroll_angle;
-    uint16_t                                     zoom_initial_distance;
-    uint16_t                                     zoom_consecutive_distance;
+    // uint16_t                                     tap_time;
+    // uint16_t                                     tap_distance;
+    // uint16_t                                     hold_time;
+    // uint16_t                                     swipe_initial_time;
+    // uint16_t                                     swipe_initial_distance;
+    // uint16_t                                     swipe_consecutive_time;
+    // uint16_t                                     swipe_consecutive_distance;
+    // int8_t                                       swipe_angle;
+    // uint16_t                                     scroll_initial_distance;
+    // int8_t                                       scroll_angle;
+    // uint16_t                                     zoom_initial_distance;
+    // uint16_t                                     zoom_consecutive_distance;
 } azoteq_iqs5xx_gesture_config_t;
 
-STATIC_ASSERT(sizeof(azoteq_iqs5xx_gesture_config_t) == 24, "azoteq_iqs5xx_gesture_config_t should be 24 bytes");
+STATIC_ASSERT(sizeof(azoteq_iqs5xx_gesture_config_t) == 2, "azoteq_iqs5xx_gesture_config_t should be 2 bytes");
 
 typedef struct {
     uint16_t x_resolution;
