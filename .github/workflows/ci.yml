@@ -57,12 +57,12 @@ jobs:
         # path, which doesn't exist inside this container. The Makefile exports
         # the variable to the keyboard sub-make.
         export QMK_USERSPACE="${GITHUB_WORKSPACE}/qmk-userspace"
-        # Only the holykeebs and keyball boards are maintained in this fork;
+        # Only the holykeebs boards are maintained in this fork;
         # upstream vial keyboards are not our concern and building all of them
         # takes ~2h.
-        targets=$(qmk find -km vial | grep -E '^(holykeebs|keyball)/' | sed "s/:vial$/:${KEYMAP}/")
+        targets=$(qmk find -km vial | grep -E '^holykeebs/' | sed "s/:vial$/:${KEYMAP}/")
         if [ -z "${targets}" ]; then
-          echo "::error::no holykeebs or keyball vial targets found"
+          echo "::error::no holykeebs vial targets found"
           exit 1
         fi
         if ! qmk mass-compile -j $(nproc) ${targets};
@@ -113,10 +113,10 @@ jobs:
         git config --global --add safe.directory $(pwd)
         # See build-default: the userspace overlay, resolved inside the container.
         export QMK_USERSPACE="${GITHUB_WORKSPACE}/qmk-userspace"
-        # See build-default: holykeebs and keyball boards only.
-        targets=$(qmk find -km "${KEYMAP}" | grep -E '^(holykeebs|keyball)/')
+        # See build-default: holykeebs boards only.
+        targets=$(qmk find -km "${KEYMAP}" | grep -E '^holykeebs/')
         if [ -z "${targets}" ]; then
-          echo "::error::no holykeebs or keyball vial targets found"
+          echo "::error::no holykeebs vial targets found"
           exit 1
         fi
         if ! qmk mass-compile -j $(nproc) ${targets};
