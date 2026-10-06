@@ -16,14 +16,44 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// inspired by https://github.com/getreuer/qmk-keymap/blob/main/config_getreuer.h
+
 #pragma once
 
-/* Select hand configuration */
-
+// Select hand configuration
 #if !defined(MASTER_RIGHT) && !defined(MASTER_LEFT)
     #define MASTER_RIGHT
 #endif
 
+// Unfortunately, some applications drop or misorder fast key events. This is a
+// partial fix to slow down the rate at which macros are sent.
+#define TAP_CODE_DELAY 5
+
+// Tap-hold configuration for home row mods.
+//#define TAPPING_TERM 240
+//#define TAPPING_TERM_PER_KEY
+//#define FLOW_TAP_TERM 100
+//#define CHORDAL_HOLD
+#define PERMISSIVE_HOLD
+#define SPECULATIVE_HOLD
+#define SPECULATIVE_HOLD_ONE_KEY
+#define SPECULATIVE_HOLD_FLOW_TERM 200
+//#define QUICK_TAP_TERM_PER_KEY
+
+#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RCTL
+#define MODS_TO_NEUTRALIZE \
+  { MOD_BIT(KC_LALT), MOD_BIT(KC_LGUI), MOD_BIT(KC_RGUI) }
+
+// When idle, turn off Caps Word after 5 seconds.
+#define CAPS_WORD_IDLE_TIMEOUT 5000
+
+// When idle, turn off Layer Lock after 60 seconds.
+#define LAYER_LOCK_IDLE_TIMEOUT 60000
+
+// When idle, turn off Sentence Case after 2 seconds.
+#define SENTENCE_CASE_TIMEOUT 2000
+
+// RGB Light
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
