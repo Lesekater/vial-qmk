@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+------------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_NUHS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+------------|
-                                          HRM_A, TL_LOWR,  KC_SPC,     KC_ENT, TL_UPPR, KC_BSPC
+                                           MO(4) , TL_LOWR,  KC_SPC,     KC_ENT, TL_UPPR, KC_BSPC
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -65,13 +65,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // "lower" Layer - NUM
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,                    XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                      XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_ESC,    HRM_A,   HRM_S,   HRM_D,   HRM_F,   KC_G,                         KC_H,    KC_4,    KC_5,    KC_6,  HRM_Ö, KC_QUOT,
+       KC_ESC,   HRM_A,   HRM_S,   HRM_D,   HRM_F,     KC_G,                         KC_H,    KC_4,    KC_5,    KC_6,  HRM_Ö, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                    XXXXXXX,    KC_1,   KC_2,     KC_3, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
+                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______,   KC_0
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -94,15 +94,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------------+------------+------------+-------------+------------+------------|                   |------------+------------+------------+------------+------------+------------|
       QK_C_EEPROM,  HK_P_SET_D,  HK_P_SET_S, HK_P_SET_THR,     XXXXXXX, HK_S_MODE_T,                         KC_LEFT,    KC_DOWN,        KC_UP,    KC_RIGHT,     XXXXXXX, QK_C_EEPROM,
   //|------------+------------+------------+-------------+------------+------------|                   |------------+------------+------------+------------+------------+------------|
-          KC_LSFT,     KC_F13,     KC_F14,      XXXXXXX,     XXXXXXX, HK_D_MODE_T,                         XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
+          KC_LSFT,      KC_F13,      KC_F14,      XXXXXXX,     XXXXXXX, HK_D_MODE_T,                         XXXXXXX,     XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,     XXXXXXX,
   //|------------+------------+------------+-------------+------------+------------+--------| |--------+------------+------------+------------+------------+------------+------------|
                                                                KC_LGUI,     _______,  KC_SPC,    KC_ENT,     _______,     KC_RALT
                                                        //`----------------------------------' `----------------------------------'
-  )
+  ),
+
+  // MOUSE
+  [4] = LAYOUT_split_3x6_3(
+  //,------------------------------------------------------------.             ,------------------------------------------------------------.
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+---------------|             |--------+--------+--------+--------+--------+---------------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      QK_MOUSE_CURSOR_LEFT, QK_MOUSE_CURSOR_DOWN, QK_MOUSE_CURSOR_UP, QK_MOUSE_CURSOR_RIGHT, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+---------------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+---------------|
+                               KC_LGUI, _______,  QK_MOUSE_BUTTON_1,     QK_MOUSE_BUTTON_1, _______, KC_RALT
+                                      //`--------------------------'  `--------------------------'
+  ),
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// Combos (https://docs.qmk.fm/features/combo)
+// Combos (https://docs.qmk./features/combo)
 ///////////////////////////////////////////////////////////////////////////////
 const uint16_t bckspc_combo[] PROGMEM = {KC_I, KC_O, KC_P, COMBO_END};
 //const uint16_t j_k_combo[] PROGMEM = {KC_J, KC_K, COMBO_END};
